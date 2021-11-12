@@ -1,0 +1,104 @@
+@include b(input){
+  position: relative;
+  font-size: $--font-size-base;
+  width: 100%;
+  display: inline-block;
+  @include scroll-bar;
+
+  @include e(inner){
+    // background: green;
+    -webkit-appearance: none;
+    background-color: $--input-background-color;
+    background-image: none;
+    border-radius: $--input-border-radius;
+    border: $--input-border;
+    box-sizing: border-box;
+    color: $--input-font-color;
+    display: inline-block;
+    font-size: inherit;
+    height: $--input-height;
+    line-height: $--input-height;
+    outline: none;
+    padding: 0 15px;
+    transition: $--border-transition-base;
+    width: 100%;
+     &::placeholder{
+       color: $--input-placeholder-color
+     }
+     &:hover {
+      border-color: $--input-hover-border;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $--input-focus-border;
+    }
+  }
+
+  // 后置图标
+  @include e(suffix){
+    position: absolute;
+    right: 5px;
+    top: 0;
+    height: 100%;
+    text-align: center;
+    color: $--input-icon-color;
+    transition: all .3s;
+    // pointer-events: none;
+  }
+
+  // 前置图标
+  @include e(prefix) {
+    position: absolute;
+    height: 100%;
+    left: 5px;
+    top: 0;
+    text-align: center;
+    color: $--input-icon-color;
+    transition: all .3s;
+  }
+
+  // 前置后置icon样式
+  @include e(icon) {
+    height: 100%;
+    width: 25px;
+    text-align: center;
+    transition: all .3s;
+    line-height: $--input-height;
+
+    &:after {
+      content: '';
+      height: 100%;
+      width: 0;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  // 计算
+  @include e(count){
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    color: $--color-info;
+    font-size: 12px;
+  }
+
+  @include e(count-inner){
+    background-color: $--color-white;
+    line-height: initial;
+    display: inline-block;
+    padding: 0 5px;
+  }
+
+
+  @include m(prefix){
+    @include e(inner){
+      padding-left: 30px;
+    }
+  }
+}
+
+@include b(textarea){
+  @include scroll-bar;
+}

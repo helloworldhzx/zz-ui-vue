@@ -1,0 +1,6 @@
+// 用户是否能选择文本
+@mixin utils-user-select($value){
+  -moz-user-select: $value;
+  -ms-user-select: $value;
+  -webkit-user-select: $value;
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input type="text" oninput="aa()"/>
+</body>
+<script>
+    function aa() {
+        console.log("aa")
+    }
+    const inputElement = document.querySelector('input[type="text"]');
+
+    inputElement.addEventListener('compositionstart', (event) => {
+        console.log(`generated characters were: ${event.data}`);
+    });
+    inputElement.addEventListener('compositionupdate', (event) => {
+        console.log(event.target.value);
+    });
+    inputElement.addEventListener('compositionend', (event) => {
+        console.log(`2`);
+    });
+</script>
+</html>

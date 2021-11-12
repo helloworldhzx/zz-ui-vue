@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<style>
+    .lamp{
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        background: #C0C4CC;
+    }
+</style>
+<body>
+<div id="app"></div>
+</body>
+<script type="text/babel">
+    const domContainer = document.getElementById('app');
+    class TrafficLightItem extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                color: props.active ?  props.color : "#C0C4CC"
+            }
+            if(props.active){
+                this.handleAA(props.duration, props.twinkleDuration)
+            }
+        }
+        UNSAFE_componentWillReceiveProps(nextProps){
+            console.log(nextProps);
+            if (nextProps.active !== this.props.active && nextProps.active ) {
+                this.handleAA(nextProps.duration, nextProps.twinkleDuration);
+                this.setState({
+                    color:nextProps.color
+                });
+            } else {
+                this.setState({
+                    color:"#C0C4CC"
+                });
+            }
+        };
+       /* static getDerivedStateFromProps = (props, state) => {
+            console.log(props, state);
+            if(props.active){
+
+                handleAA(props.duration, props.twinkleDuration);
+                return {
+                    color: props.color
+                }
+            } else {
+                return {
+                    color: "#C0C4CC"
+                }
+            }
+        }*/
+         handleAA = (duration, twinkleDuration = 0) =>{
+            setTimeout(()=>{
+                const maxCount = twinkleDuration/500;
+                let count = 0;
+                const colorArr = ["#C0C4CC", this.props.color];
+                this.setState({
+                    color: colorArr[count]
+                });
+                if(twinkleDuration > 0){
+                    const shackTime = setInterval(()=>{
+                        count=count + 1 ;
+                        this.setState({
+                            color: colorArr[count% 2]
+                        });
+                        if(count === maxCount){
+                            clearInterval(shackTime);
+                            this.props.handleAdd();
+                        }
+                    }, 500)
+                } else {
+                    this.props.handleAdd();
+                }
+            }, duration - twinkleDuration)
+        }
+        render(){
+            return <div className="lamp" style={{background: this.state.color}}></div>
+        }
+    }
+    class App extends React.Component{
+        state = {
+            lights: [
+                {color: 'red', duration: 10000, twinkleDuration: 5000},
+                {color: 'green', duration: 10000, twinkleDuration: 5000},
+                {color: 'yellow', duration: 10000},
+                {color: 'blue', duration: 10000, twinkleDuration: 2000},
+            ],
+            activeIndex: 0
+        };
+        handleAdd =()=>{
+            this.setState({activeIndex: (this.state.activeIndex+1)%this.state.lights.length})
+        }
+        render(){
+            return <>
+                {this.state.lights.map((item, index) => {return <TrafficLightItem handleAdd={this.handleAdd} {...item} active={index === this.state.activeIndex} />})}
+                <button onClick={()=>{
+                    this.setState({activeIndex: ++this.state.activeIndex%3})
+                }}>123</button>
+            </>
+        }
+    }
+    ReactDOM.render(<App />, domContainer);
+</script>
+</html>
