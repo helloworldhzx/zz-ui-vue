@@ -1,0 +1,19 @@
+{
+  "globals": {
+    "ga": true,
+    "chrome": true
+  },
+  "rules": {
+    "no-restricted-globals": [
+      "error",
+      "event",
+      "fdescribe"
+    ]
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  }
+}

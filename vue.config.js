@@ -1,7 +1,4 @@
 const path = require('path');
-function resolve (dir) {
-    return path.join(__dirname, '..', dir)
-}
 
 module.exports = {
     // 将entry指向examples
@@ -11,5 +8,9 @@ module.exports = {
             template: 'public/index.html',
             filename: 'index.html'
         }
+    },
+    chainWebpack: (config) => {
+        config.resolve.alias
+        .set('zz-ui', path.resolve(__dirname, './'))
     }
 }

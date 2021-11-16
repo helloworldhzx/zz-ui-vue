@@ -39,15 +39,21 @@
         </zz-input>
         <zz-input prefix-icon="zz-icon-s-tools" ></zz-input>
         <zz-input suffix-icon="zz-icon-phone" ></zz-input>
-        <zz-input clearable ></zz-input>
-        <zz-input show-word-limit maxlength="100000" ></zz-input>
-        <zz-input show-password ></zz-input>
+        <zz-input v-model="value" clearable ></zz-input>
+        <zz-input v-model="value" show-word-limit maxlength="1000" ></zz-input>
+        <zz-input v-model="value" type="textarea" show-word-limit maxlength="1000"></zz-input>
+        <zz-input v-model="value" show-password ></zz-input>
     </div>
 </template>
 
 <script>
     export default {
         name: "App",
+        data(){
+            return {
+                value: ""
+            }
+        },
         methods:{
             handleClick(e){
                 console.log(e)
